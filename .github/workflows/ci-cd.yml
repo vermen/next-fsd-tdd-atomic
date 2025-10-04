@@ -13,12 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2) PNPM: fijamos versión aquí porque removiste "packageManager" del package.json
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.12.0   # 👈 Versión definida aquí (antes chocaba con package.json)
-          run_install: false
+      # 2) Activar PNPM vía Corepack (evitamos usar pnpm/action-setup para no tener conflicto de versiones)
+      #    👇 CAMBIO CLAVE: usamos corepack y quitamos la acción pnpm/action-setup
+      - name: Enable Corepack / PNPM
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.12.0 --activate
 
       # 3) Node + cache de pnpm (usa pnpm-lock.yaml para cache)
       - name: Setup Node
