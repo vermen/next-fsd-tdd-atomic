@@ -13,8 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2) Activar PNPM vía Corepack (evitamos usar pnpm/action-setup para no tener conflicto de versiones)
-      #    👇 CAMBIO CLAVE: usamos corepack y quitamos la acción pnpm/action-setup
+      # 2) Activar PNPM vía Corepack (¡NO usamos pnpm/action-setup!)
       - name: Enable Corepack / PNPM
         run: |
           corepack enable
@@ -30,7 +29,6 @@ jobs:
       # 4) Instalar dependencias
       - name: Install deps
         run: pnpm install --frozen-lockfile=false
-        # Nota: si quieres bloquear estrictamente el lockfile en CI, cambia a --frozen-lockfile=true
 
       # 5) Typecheck (TS)
       - name: Typecheck
