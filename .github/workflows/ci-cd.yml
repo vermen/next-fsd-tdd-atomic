@@ -9,34 +9,39 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
+      # 1) Traer el código
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 1) Instala/activa pnpm primero
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-          run_install: false
+      # 2) Activar PNPM vía Corepack (¡NO usamos pnpm/action-setup!)
+      - name: Enable Corepack / PNPM
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.12.0 --activate
 
-      # 2) Ahora setup-node puede usar cache: pnpm sin romperse
+      # 3) Node + cache de pnpm (usa pnpm-lock.yaml para cache)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
 
+      # 4) Instalar dependencias
       - name: Install deps
         run: pnpm install --frozen-lockfile=false
 
+      # 5) Typecheck (TS)
       - name: Typecheck
         run: pnpm typecheck
 
+      # 6) Lint (no romper el build por warnings)
       - name: Lint
         run: pnpm lint || true
 
+      # 7) Tests con cobertura (Vitest + coverage v8)
       - name: Test (coverage)
         run: pnpm test -- --coverage
 
+      # 8) Build Next.js
       - name: Build (Next)
         run: pnpm build
