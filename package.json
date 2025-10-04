@@ -1,0 +1,31 @@
+{
+  "name": "next-fsd-tdd-starter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "next": "15.0.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^18.3.0",
+    "@types/node": "^20.0.0",
+    "eslint": "^8.57.1",
+    "typescript": "^5.4.0",
+    "vitest": "^3.2.4",
+    "@vitejs/plugin-react": "^4.3.0"
+  }
+}
