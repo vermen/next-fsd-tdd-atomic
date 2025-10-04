@@ -13,12 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2) PNPM: la acción leerá la versión desde package.json (packageManager).
-      #    ⚠️ OJO: Antes teníamos "version: 9" aquí; SE ELIMINA para evitar conflicto con package.json.
+      # 2) PNPM: fijamos versión aquí porque removiste "packageManager" del package.json
       - name: Setup PNPM
         uses: pnpm/action-setup@v4
         with:
-          run_install: false   # no instalamos aún; lo hacemos en el paso "Install deps"
+          version: 9.12.0   # 👈 Versión definida aquí (antes chocaba con package.json)
+          run_install: false
 
       # 3) Node + cache de pnpm (usa pnpm-lock.yaml para cache)
       - name: Setup Node
